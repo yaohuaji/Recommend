@@ -10,6 +10,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import com.yhj.tongxian.TongxianMapper;
+import com.yhj.tongxian.TongxianReduce;
 import com.yhj.userlike.UserLikeMapper;
 import com.yhj.userlike.UserLikeReduce;
 
@@ -22,18 +24,18 @@ public class RemoveRunner {
 		try {
 			FileSystem fs = FileSystem.get(config);
 			Job job = Job.getInstance(config);
-			job.setJobName("userlike job");
+			job.setJobName("tongxian job");
 			job.setJarByClass(RemoveRunner.class);
 			
-			job.setMapperClass(UserLikeMapper.class);
-			job.setReducerClass(UserLikeReduce.class);
+			job.setMapperClass(TongxianMapper.class);
+			job.setReducerClass(TongxianReduce.class);
 			
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
 			
-			FileInputFormat.addInputPath(job, new Path("/recommend/output/removalresult"));
+			FileInputFormat.addInputPath(job, new Path("/recommend/output/userlikeresult"));
 			
-			Path output = new Path("/recommend/output/userlikeresult");
+			Path output = new Path("/recommend/output/tongxian");
 			if(fs.exists(output)){
 				fs.delete(output);
 			}
