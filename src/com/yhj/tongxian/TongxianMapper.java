@@ -12,7 +12,7 @@ public class TongxianMapper extends Mapper<LongWritable, Text, Text, Text>{
 	protected void map(LongWritable key, Text value,
 			Mapper<LongWritable, Text, Text, Text>.Context context)
 			throws IOException, InterruptedException {
-		String [] tokens = Pattern.compile("[/t,]").split(value.toString());
+		String [] tokens = Pattern.compile("[\t,]").split(value.toString());
 		String user = tokens[0];
 		for(int i = 1; i < tokens.length;i++){
 			String item1 = tokens[i].split(":")[0];

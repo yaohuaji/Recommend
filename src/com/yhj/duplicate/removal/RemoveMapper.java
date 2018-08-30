@@ -13,6 +13,8 @@ public class RemoveMapper extends Mapper<LongWritable, Text, Text, NullWritable>
 	protected void map(LongWritable key, Text value,
 			Mapper<LongWritable, Text, Text, NullWritable>.Context context)
 			throws IOException, InterruptedException {
-		context.write(value, NullWritable.get());
+		if(key.get() != 0){
+			context.write(value, NullWritable.get());
+		}
 	}
 }

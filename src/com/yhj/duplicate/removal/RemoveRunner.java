@@ -5,11 +5,14 @@ import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import com.yhj.like.multi.tongxian.MultiMapper;
+import com.yhj.like.multi.tongxian.MultiReduce;
 import com.yhj.tongxian.TongxianMapper;
 import com.yhj.tongxian.TongxianReduce;
 import com.yhj.userlike.UserLikeMapper;
@@ -33,6 +36,10 @@ public class RemoveRunner {
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
 			
+			/*FileInputFormat.setInputPaths(job, 
+					new Path []{new Path("/recommend/output/userlikeresult"),
+					new Path("/root/output/tuijian/step3")}
+					);*/
 			FileInputFormat.addInputPath(job, new Path("/recommend/output/userlikeresult"));
 			
 			Path output = new Path("/recommend/output/tongxian");

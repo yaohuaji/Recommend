@@ -15,8 +15,6 @@ public class UserLikeMapper extends Mapper<LongWritable, Text, Text, Text>{
 			Mapper<LongWritable, Text, Text, Text>.Context context)
 			throws IOException, InterruptedException {
 		String str [] = value.toString().split(",");
-		if(str[2].equals("action"))
-			return;
 		String item = str[0];
 		String user = str[1];
 		int num = RunnerUtil.SCORE.get(str[2]);
