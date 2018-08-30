@@ -30,19 +30,19 @@ public class RemoveRunner {
 			job.setJobName("tongxian job");
 			job.setJarByClass(RemoveRunner.class);
 			
-			job.setMapperClass(TongxianMapper.class);
-			job.setReducerClass(TongxianReduce.class);
+			job.setMapperClass(MultiMapper.class);
+			job.setReducerClass(MultiReduce.class);
 			
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
 			
-			/*FileInputFormat.setInputPaths(job, 
+			FileInputFormat.setInputPaths(job, 
 					new Path []{new Path("/recommend/output/userlikeresult"),
-					new Path("/root/output/tuijian/step3")}
-					);*/
-			FileInputFormat.addInputPath(job, new Path("/recommend/output/userlikeresult"));
+					new Path("/recommend/output/tongxian")}
+					);
+//			FileInputFormat.addInputPath(job, new Path("/recommend/output/userlikeresult"));
 			
-			Path output = new Path("/recommend/output/tongxian");
+			Path output = new Path("/recommend/output/mutil");
 			if(fs.exists(output)){
 				fs.delete(output);
 			}

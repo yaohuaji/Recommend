@@ -23,12 +23,12 @@ public class MultiMapper extends Mapper<LongWritable, Text, Text, Text>{
 			throws IOException, InterruptedException {
 		String tokens [] = Pattern.compile("[\t,]").split(value.toString());
 		
-		if(flag.equals("step3")){
+		if(flag.equals("tongxian")){
 			String item1 = tokens[0].split(":")[0];
 			String item2 = tokens[0].split(":")[1];
 			String num = tokens[1];
 			context.write(new Text(item1), new Text("A:" + item2 + "\t" + num));
-		}else if(flag.equals("userlikeresut")){
+		}else if(flag.equals("userlikeresult")){
 			String user = tokens[0];
 			for(int i = 1;i < tokens.length;i++){
 				String item = tokens[i].split(":")[0];

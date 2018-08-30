@@ -11,13 +11,13 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class MultiReduce extends Reducer<Text, Text, Text, Text>{
 	
-	private Map<String,Integer> tongxian = new HashMap<String,Integer>();
-	private Map<String,Integer> userlike = new HashMap<String, Integer>();
 	
 	@Override
 	protected void reduce(Text key, Iterable<Text> value,
 			Reducer<Text, Text, Text, Text>.Context context) throws IOException,
 			InterruptedException {
+		Map<String,Integer> tongxian = new HashMap<String,Integer>();
+		Map<String,Integer> userlike = new HashMap<String, Integer>();
 		for(Text i : value){
 			String [] tokens = Pattern.compile("\t").split(i.toString());
 			if(tokens[0].startsWith("A")){
