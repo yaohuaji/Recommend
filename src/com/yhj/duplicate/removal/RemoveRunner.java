@@ -13,6 +13,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import com.yhj.like.multi.tongxian.MultiMapper;
 import com.yhj.like.multi.tongxian.MultiReduce;
+import com.yhj.sum.SumMapper;
+import com.yhj.sum.SumReduce;
 import com.yhj.tongxian.TongxianMapper;
 import com.yhj.tongxian.TongxianReduce;
 import com.yhj.userlike.UserLikeMapper;
@@ -30,19 +32,19 @@ public class RemoveRunner {
 			job.setJobName("tongxian job");
 			job.setJarByClass(RemoveRunner.class);
 			
-			job.setMapperClass(MultiMapper.class);
-			job.setReducerClass(MultiReduce.class);
+			job.setMapperClass(SumMapper.class);
+			job.setReducerClass(SumReduce.class);
 			
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
 			
-			FileInputFormat.setInputPaths(job, 
+			/*FileInputFormat.setInputPaths(job, 
 					new Path []{new Path("/recommend/output/userlikeresult"),
 					new Path("/recommend/output/tongxian")}
-					);
-//			FileInputFormat.addInputPath(job, new Path("/recommend/output/userlikeresult"));
+					);*/
+			FileInputFormat.addInputPath(job, new Path("/recommend/output/mutil"));
 			
-			Path output = new Path("/recommend/output/mutil");
+			Path output = new Path("/recommend/output/sum");
 			if(fs.exists(output)){
 				fs.delete(output);
 			}

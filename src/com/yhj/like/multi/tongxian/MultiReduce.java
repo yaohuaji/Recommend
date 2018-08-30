@@ -34,7 +34,7 @@ public class MultiReduce extends Reducer<Text, Text, Text, Text>{
 				String user = entry2.getKey();
 				int score = entry2.getValue();
 				int result = num*score;
-				context.write(new Text(user), new Text(key + ":" + result));
+				context.write(new Text(user), new Text(item + "," + result));
 			}
 		}
 		
