@@ -7,3 +7,6 @@ com.yhj.tongxian:获取商品的同显次数
 com.yhj.multi.tongxian:商品同显矩阵与用户喜爱矩阵相乘
 com.yhj.sum:求和，得到每一个用户的所有商品推荐分数
 com.yhj.sort:排序，将每一给用户的推荐分数的Top10推荐给用户
+
+
+工程只有一个Runner类，RunnerTest用来测试每一个MapReduce。
