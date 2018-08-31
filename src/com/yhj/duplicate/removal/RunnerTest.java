@@ -25,7 +25,7 @@ import com.yhj.tongxian.TongxianReduce;
 import com.yhj.userlike.UserLikeMapper;
 import com.yhj.userlike.UserLikeReduce;
 
-public class RemoveRunner {
+public class RunnerTest {
 	public static void main(String[] args) {
 		Configuration config = new Configuration();
 		config.set("fs.defaultFS", "hdfs://node1:8020");
@@ -34,8 +34,8 @@ public class RemoveRunner {
 		try {
 			FileSystem fs = FileSystem.get(config);
 			Job job = Job.getInstance(config);
-			job.setJobName("sort job");
-			job.setJarByClass(RemoveRunner.class);
+			job.setJobName("myjob");
+			job.setJarByClass(RunnerTest.class);
 			
 			job.setMapperClass(SortMapper.class);
 			job.setReducerClass(SortReduce.class);
@@ -60,7 +60,7 @@ public class RemoveRunner {
 			FileOutputFormat.setOutputPath(job, output);
 			boolean result = job.waitForCompletion(true);
 			if(result){
-				System.out.println("userlike succeed");
+				System.out.println("succeed");
 			}
 				
 		} catch (IOException e) {
