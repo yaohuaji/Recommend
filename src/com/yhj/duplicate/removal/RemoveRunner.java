@@ -13,6 +13,11 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import com.yhj.like.multi.tongxian.MultiMapper;
 import com.yhj.like.multi.tongxian.MultiReduce;
+import com.yhj.sort.SortClass;
+import com.yhj.sort.SortGroup;
+import com.yhj.sort.SortKey;
+import com.yhj.sort.SortMapper;
+import com.yhj.sort.SortReduce;
 import com.yhj.sum.SumMapper;
 import com.yhj.sum.SumReduce;
 import com.yhj.tongxian.TongxianMapper;
@@ -23,28 +28,32 @@ import com.yhj.userlike.UserLikeReduce;
 public class RemoveRunner {
 	public static void main(String[] args) {
 		Configuration config = new Configuration();
-		config.set("fs.defaultFS", "hdfs://node8:8020");
-		config.set("yarn.resourcemanager.hostname","node8");
+		config.set("fs.defaultFS", "hdfs://node1:8020");
+		config.set("yarn.resourcemanager.hostname","node1");
 		
 		try {
 			FileSystem fs = FileSystem.get(config);
 			Job job = Job.getInstance(config);
-			job.setJobName("tongxian job");
+			job.setJobName("sort job");
 			job.setJarByClass(RemoveRunner.class);
 			
-			job.setMapperClass(SumMapper.class);
-			job.setReducerClass(SumReduce.class);
+			job.setMapperClass(SortMapper.class);
+			job.setReducerClass(SortReduce.class);
 			
-			job.setMapOutputKeyClass(Text.class);
+			job.setMapOutputKeyClass(SortKey.class);
 			job.setMapOutputValueClass(Text.class);
+			
+			job.setSortComparatorClass(SortClass.class);
+			job.setGroupingComparatorClass(SortGroup.class);
 			
 			/*FileInputFormat.setInputPaths(job, 
 					new Path []{new Path("/recommend/output/userlikeresult"),
 					new Path("/recommend/output/tongxian")}
 					);*/
-			FileInputFormat.addInputPath(job, new Path("/recommend/output/mutil"));
 			
-			Path output = new Path("/recommend/output/sum");
+			FileInputFormat.addInputPath(job, new Path("/recommend/output/sum"));
+			
+			Path output = new Path("/recommend/output/finaltuijian");
 			if(fs.exists(output)){
 				fs.delete(output);
 			}
